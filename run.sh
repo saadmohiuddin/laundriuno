@@ -12,4 +12,4 @@ if [ -d "venv" ]; then
 fi
 
 # Run the Flask application
-python app.py
+python main.py

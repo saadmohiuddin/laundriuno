@@ -73,7 +73,7 @@ SECRET_KEY=your-secret-key-here
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Run the Flask application
-python app.py
+python main.py
 ```
 
 The application will start on `http://localhost:5000`
@@ -188,7 +188,7 @@ Example for 4 machines:
 
 ```
 laundriuno/
-├── app.py                 # Main Flask application
+├── main.py               # Main Flask application
 ├── app/
 │   ├── __init__.py       # Package initialization
 │   ├── arduino_interface.py  # Arduino serial communication
