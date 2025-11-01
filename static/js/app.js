@@ -168,6 +168,8 @@ async function loadStatistics() {
 
 // Helper function to format duration
 function formatDuration(seconds) {
+    // Handle edge cases
+    if (seconds < 0) return '0m';
     if (seconds === 0) return '0m';
     
     const hours = Math.floor(seconds / 3600);

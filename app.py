@@ -15,8 +15,7 @@ db.init_app(app)
 arduino = ArduinoInterface(
     port=app.config['ARDUINO_PORT'],
     baud_rate=app.config['ARDUINO_BAUD_RATE'],
-    vibration_threshold=app.config['VIBRATION_THRESHOLD'],
-    idle_timeout=app.config['IDLE_TIMEOUT']
+    vibration_threshold=app.config['VIBRATION_THRESHOLD']
 )
 
 # Initialize database and machines

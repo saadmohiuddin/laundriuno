@@ -9,11 +9,10 @@ import math
 class ArduinoInterface:
     """Interface for communicating with Arduino IMU sensor"""
     
-    def __init__(self, port, baud_rate, vibration_threshold, idle_timeout):
+    def __init__(self, port, baud_rate, vibration_threshold):
         self.port = port
         self.baud_rate = baud_rate
         self.vibration_threshold = vibration_threshold
-        self.idle_timeout = idle_timeout
         self.serial_connection = None
         self.running = False
         self.thread = None

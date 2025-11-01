@@ -87,7 +87,7 @@ class AnalyticsService:
         }
     
     @staticmethod
-    def get_best_times(days=7, target_hour_range=None):
+    def get_best_times(days=7):
         """
         Recommend best times to do laundry based on historical usage
         Returns hours with lowest usage

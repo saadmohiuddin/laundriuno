@@ -16,4 +16,3 @@ class Config:
     # Machine settings
     NUM_MACHINES = int(os.environ.get('NUM_MACHINES') or 4)
     VIBRATION_THRESHOLD = int(os.environ.get('VIBRATION_THRESHOLD') or 1000)
-    IDLE_TIMEOUT = int(os.environ.get('IDLE_TIMEOUT') or 300)  # seconds
