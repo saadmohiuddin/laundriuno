@@ -75,7 +75,7 @@ class ArduinoInterface:
                 acceleration_y=ay,
                 acceleration_z=az,
                 vibration_magnitude=vibration,
-                timestamp=datetime.utcnow()
+                timestamp=datetime.now()
             )
             db.session.add(reading)
             
@@ -90,13 +90,13 @@ class ArduinoInterface:
             # Update machine status if changed
             if is_running != machine.is_running:
                 machine.is_running = is_running
-                machine.last_status_change = datetime.utcnow()
+                machine.last_status_change = datetime.now()
                 
                 if is_running:
                     # Start new session
                     session = MachineSession(
                         machine_id=machine_id,
-                        start_time=datetime.utcnow()
+                        start_time=datetime.now()
                     )
                     db.session.add(session)
                     print(f"Machine {machine.name} started")
@@ -107,7 +107,7 @@ class ArduinoInterface:
                         end_time=None
                     ).first()
                     if session:
-                        session.end_time = datetime.utcnow()
+                        session.end_time = datetime.now()
                         session.duration = int((session.end_time - session.start_time).total_seconds())
                         print(f"Machine {machine.name} stopped (duration: {session.duration}s)")
             

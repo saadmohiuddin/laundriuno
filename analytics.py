@@ -33,7 +33,7 @@ class AnalyticsService:
     @staticmethod
     def get_machine_history(machine_id, days=7):
         """Get usage history for a specific machine"""
-        start_date = datetime.utcnow() - timedelta(days=days)
+        start_date = datetime.now() - timedelta(days=days)
         sessions = MachineSession.query.filter(
             MachineSession.machine_id == machine_id,
             MachineSession.start_time >= start_date
@@ -52,7 +52,7 @@ class AnalyticsService:
     @staticmethod
     def get_usage_statistics(days=7):
         """Get overall usage statistics"""
-        start_date = datetime.utcnow() - timedelta(days=days)
+        start_date = datetime.now() - timedelta(days=days)
         
         # Get all completed sessions in the time period
         sessions = MachineSession.query.filter(
@@ -92,7 +92,7 @@ class AnalyticsService:
         Recommend best times to do laundry based on historical usage
         Returns hours with lowest usage
         """
-        start_date = datetime.utcnow() - timedelta(days=days)
+        start_date = datetime.now() - timedelta(days=days)
         
         # Get all sessions in the time period
         sessions = MachineSession.query.filter(
@@ -139,7 +139,7 @@ class AnalyticsService:
     @staticmethod
     def get_hourly_availability(days=7):
         """Get average machine availability by hour"""
-        start_date = datetime.utcnow() - timedelta(days=days)
+        start_date = datetime.now() - timedelta(days=days)
         
         sessions = MachineSession.query.filter(
             MachineSession.start_time >= start_date,

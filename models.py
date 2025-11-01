@@ -8,7 +8,7 @@ class Machine(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     is_running = db.Column(db.Boolean, default=False)
-    last_status_change = db.Column(db.DateTime, default=datetime.utcnow)
+    last_status_change = db.Column(db.DateTime, default=datetime.now)
     
     sessions = db.relationship('MachineSession', backref='machine', lazy=True)
     
@@ -19,7 +19,7 @@ class MachineSession(db.Model):
     """Model for tracking machine usage sessions"""
     id = db.Column(db.Integer, primary_key=True)
     machine_id = db.Column(db.Integer, db.ForeignKey('machine.id'), nullable=False)
-    start_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    start_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
     end_time = db.Column(db.DateTime)
     duration = db.Column(db.Integer)  # duration in seconds
     
@@ -30,7 +30,7 @@ class SensorReading(db.Model):
     """Model for storing sensor readings"""
     id = db.Column(db.Integer, primary_key=True)
     machine_id = db.Column(db.Integer, db.ForeignKey('machine.id'), nullable=False)
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now)
     acceleration_x = db.Column(db.Float)
     acceleration_y = db.Column(db.Float)
     acceleration_z = db.Column(db.Float)
