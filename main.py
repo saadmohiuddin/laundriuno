@@ -57,7 +57,7 @@ def get_status():
         logger.error(f"Error getting status: {e}")
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'Failed to get machine status'
         }), 500
 
 @app.route('/api/machine/<int:machine_id>')
@@ -79,7 +79,7 @@ def get_machine_status(machine_id):
         logger.error(f"Error getting machine {machine_id} status: {e}")
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'Failed to get machine status'
         }), 500
 
 @app.route('/api/history/<int:machine_id>')
@@ -95,7 +95,7 @@ def get_machine_history(machine_id):
         logger.error(f"Error getting machine {machine_id} history: {e}")
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'Failed to get machine history'
         }), 500
 
 @app.route('/api/arduino/connect', methods=['POST'])
@@ -116,7 +116,7 @@ def connect_arduino():
         logger.error(f"Error connecting to Arduino: {e}")
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'Failed to connect to Arduino'
         }), 500
 
 @app.route('/api/arduino/disconnect', methods=['POST'])
@@ -132,7 +132,7 @@ def disconnect_arduino():
         logger.error(f"Error disconnecting from Arduino: {e}")
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'Failed to disconnect from Arduino'
         }), 500
 
 @app.route('/api/arduino/status')
@@ -157,7 +157,7 @@ def get_stats():
         logger.error(f"Error getting stats: {e}")
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'Failed to get statistics'
         }), 500
 
 @app.teardown_appcontext
@@ -170,7 +170,14 @@ if __name__ == '__main__':
         # Attempt to connect to Arduino on startup
         arduino.connect()
         logger.info("Starting Flask application...")
-        app.run(host='0.0.0.0', port=5000, debug=True)
+        
+        # Get debug mode from environment variable, default to False for security
+        debug_mode = os.environ.get('FLASK_DEBUG', '0').lower() in ('1', 'true', 'yes')
+        
+        if debug_mode:
+            logger.warning("Running in DEBUG mode - NOT suitable for production!")
+        
+        app.run(host='0.0.0.0', port=5000, debug=debug_mode)
     except KeyboardInterrupt:
         logger.info("Shutting down...")
         arduino.disconnect()
