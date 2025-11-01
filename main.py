@@ -3,6 +3,7 @@ Laundriuno Flask Application
 Main application file for laundry machine monitoring system
 """
 import os
+from pathlib import Path
 from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 from app.arduino_interface import ArduinoInterface
@@ -13,10 +14,15 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Get absolute paths
+BASE_DIR = Path(__file__).resolve().parent
+TEMPLATE_DIR = BASE_DIR / 'templates'
+STATIC_DIR = BASE_DIR / 'static'
+
 # Initialize Flask app
 app = Flask(__name__, 
-            template_folder='../templates',
-            static_folder='../static')
+            template_folder=str(TEMPLATE_DIR),
+            static_folder=str(STATIC_DIR))
 CORS(app)
 
 # Configuration
@@ -153,16 +159,6 @@ def get_stats():
             'success': False,
             'error': str(e)
         }), 500
-
-@app.before_request
-def before_request():
-    """Initialize Arduino connection before first request"""
-    if not arduino.is_connected() and not hasattr(app, '_arduino_init_attempted'):
-        app._arduino_init_attempted = True
-        try:
-            arduino.connect()
-        except Exception as e:
-            logger.warning(f"Could not connect to Arduino on startup: {e}")
 
 @app.teardown_appcontext
 def shutdown_arduino(exception=None):

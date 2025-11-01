@@ -29,6 +29,7 @@ class DataStore:
                 'in_use': False,
                 'last_updated': None,
                 'last_state_change': None,
+                'usage_start_time': None,  # Track when current usage started
                 'total_uses': 0,
                 'total_time_used': 0  # in seconds
             }
@@ -66,13 +67,14 @@ class DataStore:
                 if in_use:
                     # Machine started
                     machine['total_uses'] += 1
+                    machine['usage_start_time'] = current_time
                     self._add_history_entry(machine_id, 'started', current_time)
                 else:
-                    # Machine finished
-                    if machine['last_state_change']:
-                        # Calculate duration
-                        duration = (current_time - machine['last_state_change']).total_seconds()
+                    # Machine finished - calculate duration from usage_start_time
+                    if machine['usage_start_time']:
+                        duration = (current_time - machine['usage_start_time']).total_seconds()
                         machine['total_time_used'] += duration
+                    machine['usage_start_time'] = None
                     self._add_history_entry(machine_id, 'finished', current_time)
                 
                 logger.info(f"Machine {machine_id} status changed to {'IN_USE' if in_use else 'FREE'}")
