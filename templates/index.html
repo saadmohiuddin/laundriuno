@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundriuno - Laundry Machine Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧺 Laundriuno</h1>
+            <p class="subtitle">Smart Laundry Machine Monitoring</p>
+        </header>
+
+        <div class="section">
+            <h2>Available Machines</h2>
+            <div id="available-count" class="stat-box">
+                <span class="stat-number">-</span>
+                <span class="stat-label">machines available</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Machine Status</h2>
+            <div id="machines-grid" class="machines-grid">
+                <p>Loading...</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Best Times to Do Laundry</h2>
+            <div id="best-times" class="best-times">
+                <p>Loading recommendations...</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Hourly Availability Forecast</h2>
+            <div id="availability-chart" class="chart-container">
+                <p>Loading chart...</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Usage Statistics (Last 7 Days)</h2>
+            <div id="statistics" class="stats-grid">
+                <p>Loading statistics...</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Last updated: <span id="last-update">Never</span></p>
+            <button id="refresh-btn" onclick="loadData()">Refresh Data</button>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
